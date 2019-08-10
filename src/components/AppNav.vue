@@ -15,7 +15,7 @@
         <router-link class="nav-link"  v-if="!loggedIn" to="/login">Entrar<span class="sr-only">(current)</span></router-link>
       </li>
       <li class="nav-item">
-        <router-link v-if="loggedIn" type="button" class="nav-link logoutButton" @click="logout">Salir<span class="sr-only">(current)</span></router-link>
+        <router-link to="/" v-if="loggedIn" type="button" class="nav-link logoutButton" @click="logout">Salir<span class="sr-only">(current)</span></router-link>
       </li>
     </ul>
   </div>

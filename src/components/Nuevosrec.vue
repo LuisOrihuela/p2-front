@@ -107,9 +107,9 @@
                     ></b-form-select>
                   </b-form-group>
               <div class="justify-content-around">
-                <router-link to="">
+                <router-link to="/">
                   <b-button type="submit" variant="primary">Guardar</b-button >
-                    </router-link>  
+                </router-link>  
                   <b-button type="reset" variant="danger">Limpiar campos</b-button>
               </div>
                   

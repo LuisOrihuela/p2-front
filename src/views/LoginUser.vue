@@ -10,7 +10,7 @@
             
             <div class="form-group ">
                 <label for="email">Ingresa tu correo</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Mail" v-model="mail" value required>
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Mail" v-model="email" value required>
                 <small id="emailHelp" class="form-text text-muted">No compartas tu información a terceros.</small>
             </div>
 

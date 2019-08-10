@@ -1,7 +1,7 @@
 // 'use strict';
 import jsPDF from 'jspdf'
 
-export default function (datosImprimir) {
+export default function (ticket, datosFiscales) {
   // init the jsPDF library
   // Default export is a4 paper, portrait, using milimeters for units
   const pdf = new jsPDF()
@@ -12,20 +12,19 @@ export default function (datosImprimir) {
     param3 - String or array of strings to be added to the page. Each line is shifted one line per font, spacing
     settings declared before this call.
       */
-  const venta = datosImprimir
-  const litros = parseInt(venta.cantidad)
-  const description = litros + ' litros de gasolina premium'
-  const subtotal = parseFloat(venta.total) * 0.84
-  const precioUnitario = subtotal / litros
-  const total = venta.total
+  const litros = ticket.cantidad
+  const description = litros + ' litros ' + ticket.concepto
+  const subtotal = parseFloat(ticket.total) * 0.84
+  const precioUnitario = ticket.precioUnitario
+  const total = ticket.total
   const iva = total * 0.16
   pdf.setFontSize(12)
   pdf.addImage(img, 'JPEG', 0, 0, 210, 297)
-  pdf.text(42, 87, 'Luis Alberto Orihuela Quintos')
-  pdf.text(42, 93, 'Luis Alberto Orihuela Quintos')
-  pdf.text(42, 98, 'OIQL900517LR1')
-  pdf.text(42, 104, 'Privada de la montaña 661, Col. Lomas de Cuernavaca. ')
-  pdf.text(42, 108, 'Cuernavaca, Mor')
+  pdf.text(42, 87, datosFiscales.razonSocial)
+  pdf.text(42, 93, datosFiscales.razonSocial)
+  pdf.text(42, 98, datosFiscales.rfc)
+  pdf.text(42, 104, datosFiscales.street)
+  pdf.text(42, 108, datosFiscales.city + datosFiscales.state + datosFiscales.cp)
   // Save the PDF document
   pdf.text(35, 135, description)
   pdf.text(160, 135, precioUnitario.toString())
