@@ -1,11 +1,57 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>
-    <router-link v-if="loggedIn" to="/dashboard">Dashboard</router-link>
-    <router-link v-if="!loggedIn" to="/login" class="button">Entrar</router-link>
-    <button v-else type="button" class="logoutButton" @click="logout">Salir</button>    
+  <div id="app">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Facturatron</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <router-link class="nav-link" to="/">Home<span class="sr-only">(current)</span></router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link"  v-if="!loggedIn" to="/login">Entrar<span class="sr-only">(current)</span></router-link>
+      </li>
+      <li class="nav-item">
+        <router-link v-if="loggedIn" type="button" class="nav-link logoutButton" @click="logout">Salir<span class="sr-only">(current)</span></router-link>
+      </li>
+    </ul>
+  </div>
+</nav>  
   </div>
 </template>
+
+<style>
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+.logoutButton {
+  cursor: pointer;
+}
+</style>
+
+
+
+
 
 <script>
 import { authComputed } from '../vuex/helpers'
@@ -21,52 +67,3 @@ export default {
 }
 </script>
 
-<style scoped>
-#nav {
-  display: flex;
-  align-items: center;
-  min-height: 50px;
-  padding: 0.2em 1em;
-  background: linear-gradient(to right, #16c0b0, #6a6ccf);
-}
-
-.nav-welcome {
-  margin-left: auto;
-  margin-right: 1rem;
-  color: white;
-}
-
-a {
-  font-weight: bold;
-  color: #2c3e50;
-  margin: auto 0.8em auto 0.4em;
-  text-decoration: none;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-}
-
-.router-link-exact-active {
-  color: white;
-  border-bottom: 2px solid #fff;
-}
-
-button,
-.button {
-  margin-left: auto;
-  background: white;
-  text-decoration: none;
-  color: #2c3e50;
-
-  /* &.router-link-active {
-    color: #2c3e50;
-  } */
-}
-
-.logoutButton {
-  cursor: pointer;
-}
-
-.nav-welcome + button {
-  margin-left: 0;
-}
-</style>

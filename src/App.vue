@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-nav />
-    <router-view class="page" />
+    <router-view />
   </div>
 </template>
 
@@ -13,67 +13,69 @@ export default {
 }
 </script>
 
-<style >
-body {
+<style>
+
+#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  padding: 0em;
-  margin: 0em;
+}
+#nav {
+  padding: 30px;
 }
 
-a:visited {
+#nav a {
+  font-weight: bold;
   color: #2c3e50;
 }
 
-.button,
-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 5em;
-  height: 2em;
-  margin: 0.5em;
-  border-radius: 5px;
-  background: linear-gradient(to right, #16c0b0, #84cf6a);
-  font-size: 1em;
-  color: white;
-  border: none;
-  outline: none;
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
+/* my css */
 
-form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 15em;
-  margin-bottom: 2em;
-
-  p {
-    color: red;
+* {
+    color: gray;
   }
-}
 
-input {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  height: 2.6em;
-  padding: 0.5em;
-  margin-bottom: 1em;
-  font: 1em 'Avenir', Helvetica, sans-serif;
-}
+div.container {
+    padding: 30px;
+  } 
 
-h1 {
-  margin-top: 0;
-}
-.page {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  min-height: calc(100vh - 56px);
-}
+  div.conteiner.container-fluid{
+    padding: 20px;
+  }
+
+  .iconwelcome {
+    height: 200px;
+    width: 200px;
+  }
+
+  .icon {
+    height: 150px;
+    width: 150px;
+  }
+
+
+  .row.content {height: 750px}
+    
+  .sidenav {
+    height: 100%;
+  }
+    
+  @media screen and (max-width: 575px) {
+    .sidenav {
+      height: auto;
+      padding: 15px;
+    }
+    
+    .row.content {height: auto;} 
+  }
+  .pad {
+    padding: 10px;
+  }
+  
+
 </style>

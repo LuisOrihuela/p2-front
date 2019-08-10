@@ -97,9 +97,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-button {
-  display: inline;
-}
-</style>

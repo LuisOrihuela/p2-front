@@ -3,97 +3,128 @@
   
   <div class="row content">
 
+<!-- dos -->
     <div class="col-md-3 sidenav">
       
-        <img src="../assets/icon.png" class="icon pad" alt="">
+     <img src="../assets/icon.png" class="icon" alt="">
         <br>
         <br>
         <h2 class="card-title">Arturo Rogel</h2>
         <p class="card-text"><strong> Perfil </strong> Diseñador, programador y artista visual </p>
         <br>
-        <p>
-        <b-button @click="toggleView('facturar')" type="submit" variant="primary">Facturar</b-button >
-        </p>
-        <p>
-        <b-button @click="toggleView('nuevo')">Nuevo registro</b-button >
-        </p>
-        <p>
-        <b-button @click="toggleView('lista')">Lista de facturas</b-button >
-        </p>
-    </div>
 
-  <div class="col-md-9">
+        
 
-    <div class=" row">
-                    
-      <!-- lista de facturas -->
-      <div v-if="verlista" class="col-md-6 pad">
+                <p>
+                  <b-button @click="toggleView('facturar')" type="submit" variant="primary">Facturar</b-button >
+                </p>
+                <p>
+                  <b-button @click="toggleView('nuevo')">Nuevo registro</b-button >
+                </p>
+                <p>
+                  <b-button @click="toggleView('lista')">Lista de facturas</b-button >
+                </p>
       
-      <h3>Tus facturas</h3>
-      <p class="card-text"> Revisa y descarga tus facturas</p>
-
-      <EventCard></EventCard>   
-
-      </div>
-                      
-    <!-- componente facturación-->
-      <div v-if="verFacturar" class="row col-md-12 pad">
-          <div class="col-md-4" >
-            <h3>Tus Registros</h3>
-            <br>
-            <div class="custom-control custom-checkbox">
-            <input type="" class="custom-control-input" checked="">
-            <label class="custom-control-label" for="">RODA 820531 JWA</label>
-            </div>
-
-            <div class="custom-control custom-checkbox">
-              <input type="" class="custom-control-input" checked="">
-              <label class="custom-control-label" for="">GABE 372398 MD1</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="" class="custom-control-input" checked="">
-                <label class="custom-control-label" for="">SADE 232235 R24</label>
-            </div>
-            <br>
-            <br>
-            <p><strong><h3>Facturar</h3></strong></p>
-            <b-form-group id="input-group-3" label="Gasolinerías:" label-for="input-3">
-            <b-form-select id="input-3" :options="gas"> </b-form-select>
-            </b-form-group>
-
-            <b-form-group id="input-group-3" label="Autoservicios:" label-for="input-3">
-            <b-form-select id="input-3" :options="autoserv"></b-form-select>
-            </b-form-group>
-
-            <b-form-group id="input-group-3" label="Papelierías:" label-for="input-3">
-            <b-form-select id="input-3" :options="depots"></b-form-select>
-            </b-form-group>
-
-            <b-button type="submit" variant="primary" to="/capture">Facturar</b-button>
-            <b-button type="reset" variant="danger">Limpiar</b-button>
-
-          </div>
-          <div class="col-md-6">
-            <h3>Escanea el código QR</h3>
-            <p> dando click en el botón</p>
-            <button @click="newScan = !newScan">Escanear QR</button>
-            <qrcode-stream v-if="newScan" @decode="onDecode" @init="onInit"></qrcode-stream>
-            <div v-if="!isLoading">
-              <EventCard v-for="event in events" :key="event.id" :event="event" />
-            </div>
-            <p v-else>Loading events</p>
-          </div>
-      </div>
     </div>
-    <!-- componente nuevos registros -->
-    <div v-if="verAlta">
-    <Nuevosrec/>
-    </div>
+<!-- dos -->
+
+  <!-- tres -->
+    <div class="col-md-9">
+
+      <!--tres uno -->
+    <div class=" row">
+        
+        <!-- lista de facturas -->
+      <div v-if="verlista" class="col-md-6 pad">
+        <h3>Tus facturas</h3>
+
+        <Cards v-for="(factura,index)  in facturas" :key="index"></Cards>    
+      </div>
+            <!-- tres dos -->
+            
+            <!-- componente facturación-->
+            <div v-if="verFacturar" class="row col-md-12 pad">
+              <div class="col-md-4" >
+                <h3>Tus Registros</h3>
+                <br>
+                <div class="custom-control custom-checkbox">
+
+                  <input type="" class="custom-control-input" checked="">
+                  <label class="custom-control-label" for="">RODA 820531 JWA</label>
+              
+                </div>
+
+                <div class="custom-control custom-checkbox">
+
+                  <input type="" class="custom-control-input" checked="">
+                  <label class="custom-control-label" for="">GABE 372398 MD1</label>
+              
+                </div>
+
+                <div class="custom-control custom-checkbox">
+
+                  <input type="" class="custom-control-input" checked="">
+                  <label class="custom-control-label" for="">SADE 232235 R24</label>
+              
+                </div>
+                <br>
+                <br>
+                <p><strong><h3>Facturar</h3></strong></p>
+                            <b-form-group id="input-group-3" label="Gasolinerías:" label-for="input-3">
+                                <b-form-select
+                                id="input-3"
+                                :options="gas">
+                                </b-form-select>
+                            </b-form-group>
+
+                            <b-form-group id="input-group-3" label="Autoservicios:" label-for="input-3">
+                            <b-form-select
+                              id="input-3"
+                              :options="autoserv"
+                              
+                            ></b-form-select>
+                            </b-form-group>
+
+                            <b-form-group id="input-group-3" label="Papelierías:" label-for="input-3">
+                            <b-form-select
+                              id="input-3"
+                                :options="depots"
+                              
+                            ></b-form-select>
+                            </b-form-group>
+                            <b-button type="submit" variant="primary" to="/capture">Facturar</b-button>
+                            <b-button type="reset" variant="danger">Limpiar</b-button>
+
+              </div>
+              <div class="col-md-6">
+                  <h3>Escanea el código QR</h3>
+                  <p> dando click en el botón</p>
+                <button @click="newScan = !newScan">Escanear QR</button>
+                <qrcode-stream v-if="newScan" @decode="onDecode" @init="onInit"></qrcode-stream>
+                <div v-if="!isLoading">
+                <EventCard v-for="event in events" :key="event.id" :event="event" />
+                    </div>
+                <p v-else>Loading events</p>
+              </div>
+
+                            
+          </div>
+
   </div>
+        <!-- componente nuevos registros -->
+        <div v-if="verAlta">
+            <Nuevosrec/>
+        </div>
+        
+        <!-- tres cuatro -->
+
+      </div>
+      <!--tres uno -->
     
-  </div>
+    </div>
+  <!-- tres -->
 
-</div>
+  </div>
 </template>
 
 <script>

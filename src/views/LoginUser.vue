@@ -1,19 +1,39 @@
 <template>
-  <div>
+<div>
+  <div class="container col-sm-4" style="@media (max-width: 575px)"> 
+
     <form @submit.prevent="login">
-      <label for="email">Email:</label>
-      <input v-model="email" type="email" name="email" value required/>
+          <img src="../assets/icon.png" class="icon">
+      <div class="card-body">
+            <h5 class="card-title">Hola, bienvenido a Facturatron</h5>
+            <p class="card-text">Por favor ingresa tus datos de usuario o crea una cuenta</p>
+            
+            <div class="form-group ">
+                <label for="email">Ingresa tu correo</label>
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Mail" v-model="mail" value required>
+                <small id="emailHelp" class="form-text text-muted">No compartas tu información a terceros.</small>
+            </div>
 
-      <label for="password" >Contraseña:</label>
-      <input v-model="password" type="password" name="password" value required/>
+            <div class="form-group">
+                <label for="password">Ingresa tu contraseña</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="password" value required>
+            </div>
+          <div class="d-flex justify-content-center">
 
-      <button type="submit" name="button">Entrar</button>
+            
+      <button class="btn btn-primary disabled" type="submit" name="button">Entrar</button>
       <p>{{ error }}</p>
+      
       <router-link to="/register">
-        ¿No tienes cuenta? Regístrate.
+      <a class="btn btn-secondary disabled" tabindex="-1" role="button">Regístrate.</a>
       </router-link>
+
+          </div>
+
+      </div>
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -44,5 +64,3 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>

@@ -6,6 +6,8 @@ import RegisterUser from './views/RegisterUser.vue'
 import LoginUser from './views/LoginUser.vue'
 import Datos from './views/Rfc.vue'
 
+import Proof from './views/Proof'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -38,6 +40,11 @@ const router = new Router({
       path: '/datos',
       name: 'datos',
       component: Datos
+    },
+    {
+      path: '/proof',
+      name: 'proof',
+      component: Proof
     }
   ]
 })
