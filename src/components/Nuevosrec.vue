@@ -107,9 +107,9 @@
                     ></b-form-select>
                   </b-form-group>
               <div class="justify-content-around">
-                <router-link to="/">
+                <!-- <router-link to="/"> -->
                   <b-button type="submit" variant="primary">Guardar</b-button >
-                </router-link>  
+                <!-- </router-link>   -->
                   <b-button type="reset" variant="danger">Limpiar campos</b-button>
               </div>
                   
@@ -119,11 +119,11 @@
 
 
 <script>
-
+import axios from "axios"
 
 
   export default {
-
+    
     name: 'Nuevosrec',
     props: {
     event: {
@@ -135,17 +135,35 @@
   },
     data() {
       return {
+        datosFiscales2:{
+          persona: null,
+          razonsocial: null,
+          street: null,
+          cp: null,
+          city: 'Sin City',
+          state: null,                   
+          rfc: null,         
+        },
         facturas: [
           
         ],
         verFacturar:false,
         verlista:true,
         verAlta: false,
-        form: {
-           
+        form: {           
           gas: null, 
           autoserv: null,
           depots: null,
+          col: null,
+          calle: null,
+          razonsocial: null,
+          rfc: null,
+          noInt: null,
+          numext: null,
+          state: null,
+          tel: null,
+          regimen: null,
+          cp: null
         },
         gas: [{ text: 'Seleccione uno', value: null }, 'Gass 500', 'Bp gass', 'Hidrosina', 'Pemex'],
         show: true,
@@ -162,6 +180,14 @@
       onSubmit(evt) {
         evt.preventDefault()
         alert(JSON.stringify(this.form))
+        const userString = JSON.parse(localStorage.getItem('user'))
+        this.datosFiscales2.persona = this.form.regimen;
+        this.datosFiscales2.rfc = this.form.rfc;
+        this.datosFiscales2.street = `${this.form.calle} ${this.form.numext} ${this.form.numext} ${this.form.state}`;        
+        this.datosFiscales2.state = this.form.state;
+        this.datosFiscales2.razonsocial = this.form.razonsocial;
+        console.log(this.datosFiscales2);
+        axios.post( 'https://facturatron-backend.herokuapp.com/register-new/'+userString.id, this.datosFiscales2 )
       },
       onReset(evt) {
         evt.preventDefault()

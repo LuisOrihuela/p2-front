@@ -1,4 +1,4 @@
-# authentication_course
+
 
 ## Project setup
 

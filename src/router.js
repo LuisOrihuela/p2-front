@@ -40,11 +40,6 @@ const router = new Router({
       path: '/datos',
       name: 'datos',
       component: Datos
-    },
-    {
-      path: '/proof',
-      name: 'proof',
-      component: Proof
     }
   ]
 })

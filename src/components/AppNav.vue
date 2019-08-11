@@ -17,6 +17,8 @@
       <li class="nav-item">
         <router-link to="/" v-if="loggedIn" type="button" class="nav-link logoutButton" @click="logout">Salir<span class="sr-only">(current)</span></router-link>
       </li>
+      
+      
     </ul>
   </div>
 </nav>  
@@ -46,6 +48,17 @@
 }
 .logoutButton {
   cursor: pointer;
+}
+
+button,
+.button {
+  margin-left: auto;  
+  text-decoration: none;
+  color: #2c3e50;
+
+  /* &.router-link-active {
+    color: #2c3e50;
+  } */
 }
 </style>
 

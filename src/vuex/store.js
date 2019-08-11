@@ -31,7 +31,7 @@ export default new Vuex.Store({
   actions: {
     // @param credentials = users credentials passed in from RegisterUser.vue
     register ({ commit }, credentials) {
-      return axios.post('//localhost:3000/register', credentials)
+      return axios.post('https:/facturatron-backend.herokuapp.com/register', credentials)
         .then(({ data }) => {
           // Commits the SET_USER_DATA mutation and pass in the response
           // and pass in the response data
@@ -39,7 +39,7 @@ export default new Vuex.Store({
         })
     },
     login ({ commit }, credentials) {
-      return axios.post('//localhost:3000/login', credentials)
+      return axios.post('https:/facturatron-backend.herokuapp.com/login', credentials)
         .then(({ data }) => {
           // Commits the SET_USER_DATA mutation and pass in the response
           // and pass in the response data

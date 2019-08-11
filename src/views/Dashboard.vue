@@ -14,11 +14,11 @@
         <p>
         <b-button @click="toggleView('facturar')" type="submit" variant="primary">Facturar</b-button >
         </p>
-        <p>
+        <!-- <p>
         <b-button @click="toggleView('nuevo')">Nuevo registro</b-button >
-        </p>
+        </p> -->
         <p>
-        <b-button @click="toggleView('lista')">Lista de facturas</b-button >
+        <b-button @click="toggleView('lista')">Mis tickets</b-button >
         </p>
     </div>
 
@@ -29,10 +29,10 @@
       <!-- lista de facturas -->
       <div v-if="verlista" class="col-md-6 pad">
       
-      <h3>Tus facturas</h3>
+      <h3>Mis tickets</h3>
       <p class="card-text"> Revisa y descarga tus facturas</p>
       <div class="event-card" v-if="!isLoading" v-for="(factura, index) in tickets" :key="index" :factura="factura" @click="borrar(index)">
-        <span>{{ factura.fecha }} on ${{ factura.total }}</span>
+        <span>{{ factura.fecha }}  ${{ factura.total }}</span>
         <h4>{{ factura.empresa }}</h4>        
       </div>
       <p v-else>Loading tickets</p>
@@ -41,7 +41,7 @@
       </div>
                       
     <!-- componente facturación-->
-      <div v-if="verFacturar" class="row col-md-12 pad">
+      <!-- <div v-if="verFacturar" class="row col-md-12 pad">
           <div class="col-md-4" >
             <h3>Tus Registros</h3>
             <br>
@@ -76,11 +76,11 @@
             <b-button type="submit" variant="primary" to="/capture">Facturar</b-button>
             <b-button type="reset" variant="danger">Limpiar</b-button>
 
-          </div>
-          <div class="col-md-6" v-if="!isLoading">
-            <h3>Escanea el código QR</h3>
-            <p> dando click en el botón</p>
-            <button @click="newScan = !newScan">Escanear QR</button>
+          </div> -->
+          <div class="col-md-6" v-if="!isLoading && verFacturar" >
+            <h3>Escanea nuevo ticket</h3>
+            <!-- <p> dando click en el botón</p> -->
+            <button @click="newScan = !newScan">Escanear</button>
             <qrcode-stream v-if="newScan" @decode="onDecode" @init="onInit"></qrcode-stream>
             <p> {{ successMessage }} </p>
             <!-- <div v-if="!isLoading">
@@ -95,9 +95,9 @@
       </div>
     </div>
     <!-- componente nuevos registros -->
-    <div v-if="verAlta">
+    <!-- <div v-if="verAlta">
     <Nuevosrec/>
-    </div>
+    </!--> 
   </div>
     
   </div>
@@ -147,12 +147,10 @@ export default {
     }
   },
   created() {      
-      const userString = JSON.parse(localStorage.getItem('user'))
-      console.log("ID:", userString.id)
+      const userString = JSON.parse(localStorage.getItem('user'))      
       this.userId = userString.id
-      axios.get('//localhost:3000/dashboard/'+userString.id).then(({ data }) => {
-      // this.events = data.events
-      console.log(data);
+      axios.get('https:/facturatron-backend.herokuapp.com/dashboard/'+userString.id).then(({ data }) => {
+      // this.events = data.events      
       this.name = data[0].name;
       this.tickets = data[0].tickets;
       this.datosFiscales = data[0].datosFiscales;      
@@ -184,24 +182,20 @@ export default {
     },
     onDecode(content) {
       // this.decodedContent = JSON.parse(`{${content}}`)
-      this.decodedContent = content;
-      this.successMessage = 'Factura generada! Agradecemos su preferencia.'
-      console.log(this.decodedContent)
-      axios.get('//localhost:3000/tickets/'+this.decodedContent)
+      this.decodedContent = content;      
+      axios.get('https:/facturatron-backend.herokuapp.com/tickets/'+this.decodedContent)
         .then((ticket, err)=>{
           if(err){
             console.log(err)
           }else{
             const newTicket = ticket.data[0]
             this.tickets.push(ticket.data[0])
-            console.log(ticket.data[0]) 
-            axios.put('//localhost:3000/agregar-factura/'+this.userId, newTicket)
+            axios.put('https:/facturatron-backend.herokuapp.com/agregar-factura/'+this.userId, newTicket)
             this.newScan = !this.newScan;
             this.toggleView('lista')           
           }          
         })   
-        .catch(err=>console.log(err))
-      // imprimirPDF(this.decodedContent)      
+        .catch(err=>console.log(err))          
     },
     onInit(promise) {
       promise

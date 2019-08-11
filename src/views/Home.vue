@@ -12,16 +12,14 @@
       <br> 
     </div>
           
-    <div class="justify-content-around" v-if="!loggedIn">
-
-       
+    <div class="justify-content-around" v-if="!loggedIn">       
       <router-link to="/login">
       <a class="btn btn-primary disabled" tabindex="-1" role="button" aria-disabled="true">Acceder</a>
-    </router-link>
+      </router-link>
       o
-    <router-link to="/register">
+      <router-link to="/register">
       <a class="btn btn-secondary disabled" tabindex="-1" role="button"> Registrate </a>
-    </router-link>
+      </router-link>
     </div>
 
     
