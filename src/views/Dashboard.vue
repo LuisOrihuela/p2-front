@@ -156,8 +156,9 @@ export default {
       imprimirPDF(this.tickets[index], this.datosFiscales)
       axios
         .put(
-          'http://localhost:4000/delete-ticket/' + this.userId,
+          'https:/facturatron-backend.herokuapp.com' + this.userId,
           this.tickets[index]
+          // 'http://localhost:4000/delete-ticket/' + this.userId, this.tickets[index]
         )
         .then(res => {})
         .catch(err => console.log(err))
@@ -167,8 +168,9 @@ export default {
       this.decodedContent = content
       axios
         .get(
-          // 'https:/facturatron-backend.herokuapp.com/tickets/' +
-          'http://localhost:4000/tickets/' + this.decodedContent
+          'https:/facturatron-backend.herokuapp.com/tickets/' +
+            this.decodedContent
+          // 'http://localhost:4000/tickets/' + this.decodedContent
         )
         .then((ticket, err) => {
           if (err) {
@@ -178,9 +180,10 @@ export default {
             this.tickets.push(ticket.data[0])
             axios
               .put(
-                // 'https:/facturatron-backend.herokuapp.com/agregar-factura/' +
-                'http://localhost:4000/agregar-factura/' + this.userId,
+                'https:/facturatron-backend.herokuapp.com/agregar-factura/' +
+                  this.userId,
                 newTicket
+                // 'http://localhost:4000/agregar-factura/' + this.userId, newTicket
               )
               .then(res => {
                 console.log('Downloaded')
