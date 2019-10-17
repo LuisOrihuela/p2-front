@@ -1,108 +1,64 @@
 <template>
-<div class="conteiner container-fluid">
-  
-  <div class="row content">
-
-    <div class="col-md-3 sidenav">
-      
-        <img src="../assets/icon.png" class="icon pad" alt="">
-        <br>
-        <br>
+  <div class="conteiner container-fluid">
+    <div class="row content">
+      <div class="col-md-3 sidenav">
+        <img src="../assets/icon.png" class="icon pad" alt />
+        <br />
+        <br />
         <h2 class="card-title">{{ name }}</h2>
-        <p class="card-text"><strong> Bienvenido a tu perfil </strong>  </p>
-        <br>
-        <p>
-        <b-button @click="toggleView('facturar')" type="submit" variant="primary">Facturar</b-button >
+        <p class="card-text">
+          <strong>Bienvenido a tu perfil</strong>
         </p>
-        <!-- <p>
-        <b-button @click="toggleView('nuevo')">Nuevo registro</b-button >
-        </p> -->
+        <br />
         <p>
-        <b-button @click="toggleView('lista')">Mis tickets</b-button >
+          <b-button @click="toggleView('facturar')" type="submit" variant="primary">Facturar</b-button>
         </p>
-    </div>
 
-  <div class="col-md-9">
-
-    <div class=" row">
-                    
-      <!-- lista de facturas -->
-      <div v-if="verlista" class="col-md-6 pad">
-      
-      <h3>Mis tickets</h3>
-      <p class="card-text"> Revisa y descarga tus facturas</p>
-      <div class="event-card" v-if="!isLoading" v-for="(factura, index) in tickets" :key="index" :factura="factura" @click="borrar(index)">
-        <span>{{ factura.fecha }}  ${{ factura.total }}</span>
-        <h4>{{ factura.empresa }}</h4>        
+        <p>
+          <b-button @click="toggleView('lista')">Mis tickets</b-button>
+        </p>
       </div>
-      <p v-else>Loading tickets</p>
-      <!-- <EventCard></EventCard>    -->
-      
-      </div>
-                      
-    <!-- componente facturación-->
-      <!-- <div v-if="verFacturar" class="row col-md-12 pad">
-          <div class="col-md-4" >
-            <h3>Tus Registros</h3>
-            <br>
-            <div class="custom-control custom-checkbox">
-            <input type="" class="custom-control-input" checked="">
-            <label class="custom-control-label" for="">RODA 820531 JWA</label>
+
+      <div class="col-md-9">
+        <div class="row">
+          <!-- lista de facturas -->
+          <div v-if="verlista" class="col-md-6 pad">
+            <h3>Mis tickets</h3>
+            <p class="card-text">Revisa y descarga tus facturas</p>
+            <div
+              class="event-card"
+              v-if="!isLoading"
+              v-for="(factura, index) in tickets"
+              :key="index"
+              :factura="factura"
+              @click="borrar(index)"
+            >
+              <span>{{ factura.fecha }} ${{ factura.total }}</span>
+              <h4>{{ factura.empresa }}</h4>
             </div>
-
-            <div class="custom-control custom-checkbox">
-              <input type="" class="custom-control-input" checked="">
-              <label class="custom-control-label" for="">GABE 372398 MD1</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="" class="custom-control-input" checked="">
-                <label class="custom-control-label" for="">SADE 232235 R24</label>
-            </div>
-            <br>
-            <br>
-            <p><strong><h3>Facturar</h3></strong></p>
-            <b-form-group id="input-group-3" label="Gasolinerías:" label-for="input-3">
-            <b-form-select id="input-3" :options="gas"> </b-form-select>
-            </b-form-group>
-
-            <b-form-group id="input-group-3" label="Autoservicios:" label-for="input-3">
-            <b-form-select id="input-3" :options="autoserv"></b-form-select>
-            </b-form-group>
-
-            <b-form-group id="input-group-3" label="Papelierías:" label-for="input-3">
-            <b-form-select id="input-3" :options="depots"></b-form-select>
-            </b-form-group>
-
-            <b-button type="submit" variant="primary" to="/capture">Facturar</b-button>
-            <b-button type="reset" variant="danger">Limpiar</b-button>
-
-          </div> -->
-          <div class="col-md-6" v-if="!isLoading && verFacturar" >
-            <h3>Escanea nuevo ticket</h3>
-            <!-- <p> dando click en el botón</p> -->
-            <button @click="newScan = !newScan">Escanear</button>
-            <qrcode-stream v-if="newScan" @decode="onDecode" @init="onInit"></qrcode-stream>
-            <p> {{ successMessage }} </p>
-            <!-- <div v-if="!isLoading">
-              <EventCard v-for="event in events" :key="event.id" :event="event" />
-            </div> -->
-            <!-- <div class="event-card" v-if="!isLoading" v-for="(factura, index) in tickets" :key="index" :factura="factura" @click="borrar(index)">
-              <span>{{ factura.fecha }} on ${{ factura.total }}</span>
-               <h4>{{ factura.empresa }}</h4>        
-            </div>
-            <p v-else>Loading tickets</p> -->
+            <p v-else>Loading tickets</p>
           </div>
+
+          <div class="col-md-6" v-if="!isLoading && verFacturar">
+            <h3>Escanea un nuevo ticket</h3>
+
+            <b-button
+              class="scan-btn"
+              @click="newScan = !newScan"
+              type="submit"
+              variant="primary"
+            >Escanear</b-button>
+            <!-- <button class="scan-btn" @click="newScan = !newScan">Escanear</button> -->
+
+            <qrcode-stream v-if="newScan" @decode="onDecode" @init="onInit"></qrcode-stream>
+            <p>{{ successMessage }}</p>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- componente nuevos registros -->
-    <!-- <div v-if="verAlta">
-    <Nuevosrec/>
-    </!--> 
-  </div>
-    
   </div>
 
-</div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -113,89 +69,127 @@ import jsPDF from 'jspdf'
 import Nuevosrec from '../components/Nuevosrec'
 
 export default {
-
   components: { EventCard },
   components: { Nuevosrec },
   data() {
     return {
-        
-        verFacturar:false,
-        verlista:true,
-        verAlta: false,
-        newScan: false,
+      verFacturar: false,
+      verlista: true,
+      verAlta: false,
+      newScan: false,
 
-        isLoading: true,
-        events: [],
-        decodedContent: {},
-        errorMessage: '',
-        successMessage: '',
+      isLoading: true,
+      events: [],
+      decodedContent: {},
+      errorMessage: '',
+      successMessage: '',
 
-        gas: [{ text: 'Seleccione uno', value: null }, 'Gass 500', 'Bp gass', 'Hidrosina', 'Pemex'],
-        show: true,
-        autoserv: [{ text: 'Seleccione uno', value: null }, 'Soriana', 'Wallmart', 'Aurrera', 'Superama'],
-        show: true,
-        depots: [{ text: 'Seleccione uno', value: null }, 'Dabo', 'Office depot', 'Office Max', 'Lumen'],
-        show: true,
-        regimenes: [{ text: 'Seleccione uno', value: null }, 'Persona física', 'Persona Moral'],
-        show: true,
+      gas: [
+        { text: 'Seleccione uno', value: null },
+        'Gass 500',
+        'Bp gass',
+        'Hidrosina',
+        'Pemex'
+      ],
+      show: true,
+      autoserv: [
+        { text: 'Seleccione uno', value: null },
+        'Soriana',
+        'Wallmart',
+        'Aurrera',
+        'Superama'
+      ],
+      show: true,
+      depots: [
+        { text: 'Seleccione uno', value: null },
+        'Dabo',
+        'Office depot',
+        'Office Max',
+        'Lumen'
+      ],
+      show: true,
+      regimenes: [
+        { text: 'Seleccione uno', value: null },
+        'Persona física',
+        'Persona Moral'
+      ],
+      show: true,
 
-        name: '',
-        tickets: [],
-        datosFiscales: {},
-        userId: ''
-        
+      name: '',
+      tickets: [],
+      datosFiscales: {},
+      userId: '',
+      tkts: []
     }
   },
-  created() {      
-      const userString = JSON.parse(localStorage.getItem('user'))      
-      this.userId = userString.id
-      axios.get('https:/facturatron-backend.herokuapp.com/dashboard/'+userString.id).then(({ data }) => {
-      // this.events = data.events      
-      this.name = data[0].name;
-      this.tickets = data[0].tickets;
-      this.datosFiscales = data[0].datosFiscales;      
-      this.isLoading = false      
-    })
+  created() {
+    const userString = JSON.parse(localStorage.getItem('user'))
+    this.userId = userString.id
+    axios
+      .get(
+        'https:/facturatron-backend.herokuapp.com/dashboard/' + userString.id
+      )
+      .then(({ data }) => {
+        this.name = data[0].name
+        this.tickets = [...data[0].facturas]
+        this.datosFiscales = data[0].datosFiscales
+        this.isLoading = false
+      })
   },
   methods: {
-      toggleView (button) {
-        if(button === 'facturar'){
-          this.verFacturar = true
-          this.verlista    = false
-          this.verAlta     = false
-        }else if(button === 'nuevo'){
-          this.verAlta     = true
-          this.verFacturar = false
-          this.verlista    = false
-        }else if(button === 'lista'){
-          this.verlista    = true
-          this.verAlta     = false
-          this.verFacturar = false
-          
-        }
-      },
+    toggleView(button) {
+      if (button === 'facturar') {
+        this.verFacturar = true
+        this.verlista = false
+        this.verAlta = false
+      } else if (button === 'nuevo') {
+        this.verAlta = true
+        this.verFacturar = false
+        this.verlista = false
+      } else if (button === 'lista') {
+        this.verlista = true
+        this.verAlta = false
+        this.verFacturar = false
+      }
+    },
     borrar(index) {
-      console.log("Imprimir")
-      imprimirPDF(this.tickets[index], this.datosFiscales) 
-      this.tickets.splice(index,1);
-       
+      imprimirPDF(this.tickets[index], this.datosFiscales)
+      axios
+        .put(
+          'http://localhost:4000/delete-ticket/' + this.userId,
+          this.tickets[index]
+        )
+        .then(res => {})
+        .catch(err => console.log(err))
+      this.tickets.splice(index, 1)
     },
     onDecode(content) {
-      // this.decodedContent = JSON.parse(`{${content}}`)
-      this.decodedContent = content;      
-      axios.get('https:/facturatron-backend.herokuapp.com/tickets/'+this.decodedContent)
-        .then((ticket, err)=>{
-          if(err){
+      this.decodedContent = content
+      axios
+        .get(
+          // 'https:/facturatron-backend.herokuapp.com/tickets/' +
+          'http://localhost:4000/tickets/' + this.decodedContent
+        )
+        .then((ticket, err) => {
+          if (err) {
             console.log(err)
-          }else{
+          } else {
             const newTicket = ticket.data[0]
             this.tickets.push(ticket.data[0])
-            axios.put('https:/facturatron-backend.herokuapp.com/agregar-factura/'+this.userId, newTicket)
-            this.newScan = !this.newScan;
-            this.toggleView('lista')           
-          }          
-        })   
-        .catch(err=>console.log(err))          
+            axios
+              .put(
+                // 'https:/facturatron-backend.herokuapp.com/agregar-factura/' +
+                'http://localhost:4000/agregar-factura/' + this.userId,
+                newTicket
+              )
+              .then(res => {
+                console.log('Downloaded')
+              })
+            this.newScan = !this.newScan
+            this.toggleView('lista')
+          }
+        })
+        .catch(err => console.log(err))
     },
     onInit(promise) {
       promise
@@ -220,7 +214,7 @@ export default {
             this.errorMessage = 'UNKNOWN ERROR: ' + error.message
           }
         })
-    }  
+    }
   }
 }
 </script>
@@ -242,5 +236,8 @@ export default {
   margin-top: 0.5em;
   margin-bottom: 0.3em;
 }
-  
+
+.scan-btn {
+  margin-bottom: 12px;
+}
 </style>
