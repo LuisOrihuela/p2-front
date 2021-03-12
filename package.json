@@ -19,7 +19,7 @@
     "express": "^4.16.4",
     "jquery": "^3.4.1",
     "jsonwebtoken": "^8.4.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "nodemon": "^1.18.10",
     "vue": "^2.6.10",
     "vue-qrcode-reader": "^2.0.3",
